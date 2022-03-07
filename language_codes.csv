@@ -132,39 +132,38 @@
 "DIM","Dimasa/Dhimasa: India-Assam: (0.1m)","dis"
 "DIT","Ditamari: Benin (0.1m)","tbz"
 "DO","Dogri (sometimes includes Kangri dialect): N India (4m)","doi,dgo,him"
-"DR",Dari / Eastern Farsi: Afghanistan (7m), Pakistan (2m)               [prs]
-"DU",Dusun: Malaysia-Sabah (0.1m)                                        [dtp]
-"DUN",Dungan: Kyrgyzstan (40,000)                                         [dng]
-"DY",Dyula/Jula: Burkina Faso (1m), Ivory Coast (1.5m), Mali (50,000)    [dyu]
-"DZ",Dzongkha: Bhutan (0.2m)                                             [dzo]
-"E",English: UK (60m), USA (225m), India (200m), others                 [eng]
-"EC",Eastern Cham: Vietnam (70,000)                                      [cjm]
-"EGY",Egyptian Arabic: Egypt (52m)                                        [arz]
-"EO",Esperanto: Constructed language (2m)                                [epo]
-"ES",Estonian: Estonia (1m)                                              [ekk]
-"EWE",Ewe / Éwé: Ghana (2m), Togo (1m)                                    [ewe]
-"F",French: France (53m), Canada (7m), Belgium (4m), Switzerland (1m)   [fra]
-"FA",Faroese: Faroe Islands (66,000)                                     [fao]
-"FI",Finnish: Finland (5m)                                               [fin]
-"FJ",Fijian: Fiji (0.3m)                                                 [fij]
-"FON",Fon / Fongbe: Benin (1.4m)                                          [fon]
-"FP",Filipino (based on Tagalog): Philippines (25m)                      [fil]
-"FS",Farsi / Iranian Persian: Iran (45m)                                 [pes]
-"FT",Fiote / Vili: Rep. Congo (7000), Gabon (4000)                       [vif]
-"FU",Fulani/Fulfulde: Nigeria (8m), Niger (1m),Burkina Faso (1m) [fub,fuh,fuq]
-"FUJ",FutaJalon / Pular: Guinea (3m)                                      [fuf]
-     "Fujian",: see TW-Taiwanese
-"FUR",Fur: Sudan-Darfur (0.5m)                                            [fvr]
-"GA",Garhwali: India-Uttarakhand,Himachal Pr. (3m)                       [gbm]
-"GAG",Gagauz: Moldova (0.1m)                                              [gag]
-"GAR",Garo: India-Meghalaya,Assam,Nagaland,Tripura (1m)                   [grt]
-"GD",Greenlandic Inuktikut: Greenland (50,000)                           [kal]
-"GE",Georgian: Georgia (4m)                                              [kat]
-"GI",Gilaki: Iran (3m)                                                   [glk]
-"GJ",Gujari/Gojri: NW India (0.7m), Pakistan (0.3m)                      [gju]
-"GL",Galicic/Gallego: Spain (3m)                                         [glg]
-"GM",Gamit: India-Gujarat (0.3m)                                         [gbl]
-"GNG",Gurung (Eastern and Western): Nepal (0.4m)                      [ggn,gvr]
+"DR","Dari / Eastern Farsi: Afghanistan (7m), Pakistan (2m)","prs"
+"DU","Dusun: Malaysia-Sabah (0.1m)","dtp"
+"DUN","Dungan: Kyrgyzstan (40,000)","dng"
+"DY","Dyula/Jula: Burkina Faso (1m), Ivory Coast (1.5m), Mali (50,000)","dyu"
+"DZ","Dzongkha: Bhutan (0.2m)","dzo"
+"E","English: UK (60m), USA (225m), India (200m), others","eng"
+"EC","Eastern Cham: Vietnam (70,000)","cjm"
+"EGY","Egyptian Arabic: Egypt (52m)","arz"
+"EO","Esperanto: Constructed language (2m)","epo"
+"ES","Estonian: Estonia (1m)","ekk"
+"EWE","Ewe / Éwé: Ghana (2m), Togo (1m)","ewe"
+"F","French: France (53m), Canada (7m), Belgium (4m), Switzerland (1m)","fra"
+"FA","Faroese: Faroe Islands (66,000)","fao"
+"FI","Finnish: Finland (5m)","fin"
+"FJ","Fijian: Fiji (0.3m)","fij"
+"FON","Fon / Fongbe: Benin (1.4m)","fon"
+"FP","Filipino (based on Tagalog): Philippines (25m)","fil"
+"FS","Farsi / Iranian Persian: Iran (45m)","pes"
+"FT","Fiote / Vili: Rep. Congo (7000), Gabon (4000)","vif"
+"FU","Fulani/Fulfulde: Nigeria (8m), Niger (1m),Burkina Faso (1m)","fub,fuh,fuq"
+"FUJ","FutaJalon / Pular: Guinea (3m)","fuf"
+"FUR","Fur: Sudan-Darfur (0.5m)","fvr"
+"GA","Garhwali: India-Uttarakhand,Himachal Pr. (3m)","gbm"
+"GAG","Gagauz: Moldova (0.1m)","gag"
+"GAR","Garo: India-Meghalaya,Assam,Nagaland,Tripura (1m)","grt"
+"GD","Greenlandic Inuktikut: Greenland (50,000)","kal"
+"GE","Georgian: Georgia (4m)","kat"
+"GI","Gilaki: Iran (3m)","glk"
+"GJ","Gujari/Gojri: NW India (0.7m), Pakistan (0.3m)","gju"
+"GL","Galicic/Gallego: Spain (3m)","glg"
+"GM","Gamit: India-Gujarat (0.3m)","gbl"
+"GNG","Gurung (Eastern and Western): Nepal (0.4m)","ggn,gvr"
 "GO",Gorontalo: Indonesia-Sulawesi (1m)                                  [gor]
 "GON",Gondi: India-Madhya Pr.,Maharashtra (2m)                            [gno]
 "GR",Greek: Greece (10m), Cyprus (0.7m)                                  [ell]
