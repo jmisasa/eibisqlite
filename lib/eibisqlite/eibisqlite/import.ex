@@ -6,9 +6,9 @@ defmodule Eibisqlite.Import do
   """
   def import() do
     File.mkdir("tmp")
-    db_file = "./tmp/eibi.sqlite"
+    db_file = File.cwd! <> "/tmp/eibi.sqlite"
     eibi_file_endpoint = "http://eibispace.de/dx/sked-b21.csv"
-    eibi_file_tmp = "./tmp/eibi.csv"
+    eibi_file_tmp = File.cwd! <> "/tmp/eibi.csv"
 
     :ok = File.rm!(db_file)
     {:ok, conn} = Sqlite.open(db_file)
@@ -44,8 +44,9 @@ defmodule Eibisqlite.Import do
         Sqlite.step(conn, statement)
       end)
 
-#    %HTTPoison.Response{body: body} = HTTPoison.get!(eibi_file_endpoint)
-#    File.write!(eibi_file_tmp, body)
+    #%HTTPoison.Response{body: body} = HTTPoison.get!(eibi_file_endpoint)
+    #{:ok, utf8_body} = Codepagex.to_string(body, :iso_8859_1)
+    #File.write!(eibi_file_tmp, utf8_body)
 
     {:ok, statement} = Sqlite.prepare(conn, """
       insert into eibi (
@@ -78,11 +79,14 @@ defmodule Eibisqlite.Import do
     eibi_file_tmp
     |> Path.expand(__DIR__)
     |> File.stream!
-    |> CSV.decode()
+    #|> Enum.drop(1)
+    |> CSV.decode(separator: ?;, validate_row_length: false)
     |> Enum.drop(1)
-    |> Enum.map(fn {:ok, row} ->
-      Sqlite.bind(conn, statement, row)
-      Sqlite.step(conn, statement)
+    |> Enum.map(fn x ->
+    #|> Enum.map(fn row ->
+      IO.puts(x)
+      #Sqlite.bind(conn, statement, row)
+      #Sqlite.step(conn, statement)
     end)
 
     # Step is used to run statements
