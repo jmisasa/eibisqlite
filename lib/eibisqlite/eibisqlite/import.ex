@@ -5,6 +5,7 @@ defmodule Eibisqlite.Import do
 
   @eibi_file_endpoint "http://eibispace.de/dx/sked-b21.csv"
   @eibi_country_codes_file File.cwd! <> "/eibi-files/country_codes.csv"
+  @eibi_language_codes_file File.cwd! <> "/eibi-files/language_codes.csv"
   @eibi_file_tmp File.cwd! <> "/tmp/eibi.csv"
 
   @csv_header_khz "kHz:75"
@@ -24,8 +25,6 @@ defmodule Eibisqlite.Import do
   """
   def import() do
     File.mkdir("tmp")
-    eibi_file_endpoint = "http://eibispace.de/dx/sked-b21.csv"
-    eibi_file_tmp = File.cwd! <> "/tmp/eibi.csv"
 
     :ok = File.rm!(@db_file)
     {:ok, conn} = Sqlite.open(@db_file)
@@ -49,6 +48,7 @@ defmodule Eibisqlite.Import do
         end_date text
       )
       """);
+    :ok = Sqlite.execute(conn, "create table language_codes (language_code text primary key, description text, iso639_3 text)")
 
     {:ok, statement} = Sqlite.prepare(conn, "insert into country_codes (itu_code, country_name) values (?1, ?2)")
 
@@ -62,9 +62,21 @@ defmodule Eibisqlite.Import do
         Sqlite.step(conn, statement)
       end)
 
+    {:ok, statement} = Sqlite.prepare(conn, "insert into language_codes (language_code, description, iso639_3) values (?1, ?2, ?3)")
+
+    @eibi_language_codes_file
+    |> Path.expand(__DIR__)
+    |> File.stream!
+    |> CSV.decode()
+    |> Enum.drop(1)
+    |> Enum.map(fn {:ok, row} ->
+      Sqlite.bind(conn, statement, row)
+      Sqlite.step(conn, statement)
+    end)
+
     #%HTTPoison.Response{body: body} = HTTPoison.get!(@eibi_file_endpoint)
     #{:ok, utf8_body} = Codepagex.to_string(body, :iso_8859_1)
-    #File.write!(eibi_file_tmp, utf8_body)
+    #File.write!(@eibi_file_tmp, utf8_body)
 
     {:ok, statement} = Sqlite.prepare(conn, """
       insert into eibi (
@@ -96,7 +108,7 @@ defmodule Eibisqlite.Import do
       )
     """)
 
-    eibi_file_tmp
+    @eibi_file_tmp
     |> Path.expand(__DIR__)
     |> File.stream!
     |> CSV.decode(separator: ?;, validate_row_length: false, headers: true)
