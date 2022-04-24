@@ -3,7 +3,6 @@ defmodule Eibisqlite.Import do
 
   @db_file File.cwd! <> "/tmp/eibi.sqlite"
 
-  @eibi_file_endpoint "http://eibispace.de/dx/sked-b21.csv"
   @eibi_country_codes_file File.cwd! <> "/eibi-files/country_codes.csv"
   @eibi_language_codes_file File.cwd! <> "/eibi-files/language_codes.csv"
   @eibi_file_tmp File.cwd! <> "/tmp/eibi.csv"
@@ -74,9 +73,10 @@ defmodule Eibisqlite.Import do
       Sqlite.step(conn, statement)
     end)
 
-    #%HTTPoison.Response{body: body} = HTTPoison.get!(@eibi_file_endpoint)
-    #{:ok, utf8_body} = Codepagex.to_string(body, :iso_8859_1)
-    #File.write!(@eibi_file_tmp, utf8_body)
+    %Eibicrawler{current_file_link: current_file_link} = Eibicrawler.get_current_file_metadata()
+    %HTTPoison.Response{body: body} = HTTPoison.get!(current_file_link)
+    {:ok, utf8_body} = Codepagex.to_string(body, :iso_8859_1)
+    File.write!(@eibi_file_tmp, utf8_body)
 
     {:ok, statement} = Sqlite.prepare(conn, """
       insert into eibi (

@@ -24,7 +24,8 @@ defmodule Eibisqlite.MixProject do
       {:exqlite, "~> 0.10.1"},
       {:csv, "~> 2.4"},
       {:httpoison, "~> 1.8"},
-      {:codepagex, "~> 0.1.6"}
+      {:codepagex, "~> 0.1.6"},
+      {:floki, "~> 0.26.0"}
     ]
   end
 end

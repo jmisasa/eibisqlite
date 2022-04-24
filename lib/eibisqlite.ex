@@ -4,15 +4,9 @@ defmodule Eibisqlite do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Eibisqlite.hello()
-      :world
-
+  Run import
   """
-  def hello do
-    :world
+  def import do
+    Eibisqlite.Import.import()
   end
 end
