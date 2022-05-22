@@ -34,8 +34,6 @@ defmodule Eibicrawler do
       |> Floki.find("center:nth-of-type(2) > table:first-of-type > tr:first-of-type > td:last-of-type > span")
       |> Floki.text()
 
-    IO.puts(last_update)
-
     %Eibicrawler{
       machine_name_for_period: machine_name_for_period,
       filename: current_file_name,

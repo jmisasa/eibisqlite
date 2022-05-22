@@ -22,7 +22,8 @@ defmodule Import do
   @doc """
   Generates database and run import
   """
-  def import() do
+  @spec import(%Eibicrawler{}) :: String.t()
+  def import(current_file_info) do
     File.mkdir("tmp")
 
     :ok = File.rm!(@db_file)
@@ -73,7 +74,7 @@ defmodule Import do
       Sqlite.step(conn, statement)
     end)
 
-    %Eibicrawler{current_file_link: current_file_link} = Eibicrawler.get_current_file_metadata()
+    %Eibicrawler{current_file_link: current_file_link} = current_file_info
     %HTTPoison.Response{body: body} = HTTPoison.get!(current_file_link)
     {:ok, utf8_body} = Codepagex.to_string(body, :iso_8859_1)
     File.write!(@eibi_file_tmp, utf8_body)
@@ -154,5 +155,7 @@ defmodule Import do
     # Step is used to run statements
     :done = Sqlite.step(conn, statement)
     :ok = Sqlite.release(conn, statement)
+
+    :ok
   end
 end
