@@ -37,9 +37,10 @@ jobs:
         id: create_version
         run: echo "::set-output name=create_version::$(mix create_version)"
   release:
+    needs: create_version
     runs-on: ubuntu-20.04
     name: Creates new eibi sqlite version if necessary
-    if: ${{ jobs.create_version.outputs.has_to_create_new_version == 'true' }}
+    if: ${{ needs.create_version.outputs.has_to_create_new_version == 'true' }}
     steps:
       - name: Test
         run: echo "hello world!"
