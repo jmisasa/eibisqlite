@@ -7,6 +7,6 @@ defmodule Eibisqlite do
   Run import
   """
   def import do
-    Eibisqlite.Import.import()
+    Import.import()
   end
 end

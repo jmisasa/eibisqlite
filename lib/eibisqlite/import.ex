@@ -1,4 +1,4 @@
-defmodule Eibisqlite.Import do
+defmodule Import do
   alias Exqlite.Sqlite3, as: Sqlite
 
   @db_file File.cwd! <> "/tmp/eibi.sqlite"

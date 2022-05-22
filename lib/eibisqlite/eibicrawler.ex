@@ -1,5 +1,5 @@
 defmodule Eibicrawler do
-  defstruct [:machine_name_for_period, :filename, :current_file_link]
+  defstruct [:machine_name_for_period, :filename, :current_file_link, :last_update]
 
   @eibi_web "http://www.eibispace.de/"
 
@@ -30,10 +30,17 @@ defmodule Eibicrawler do
       |> String.replace(" ", "_")
       |> String.downcase
 
+    last_update = document
+      |> Floki.find("center:nth-of-type(2) > table:first-of-type > tr:first-of-type > td:last-of-type > span")
+      |> Floki.text()
+
+    IO.puts(last_update)
+
     %Eibicrawler{
       machine_name_for_period: machine_name_for_period,
       filename: current_file_name,
-      current_file_link: @eibi_web <> current_file_relative_link
+      current_file_link: @eibi_web <> current_file_relative_link,
+      last_update: last_update
     }
   end
 end
