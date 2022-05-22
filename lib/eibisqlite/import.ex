@@ -26,7 +26,10 @@ defmodule Import do
   def import(current_file_info) do
     File.mkdir("tmp")
 
-    :ok = File.rm!(@db_file)
+    if File.exists?(@db_file) do
+      :ok = File.rm!(@db_file)
+    end
+
     {:ok, conn} = Sqlite.open(@db_file)
 
     # create tables
