@@ -16,7 +16,6 @@ jobs:
           elixir-version: '1.13.0'
       - run: mix deps.get
       - run: mix compile
-      - run: echo "::set-output name=create_version::$(mix task create_version)"
+      - run: echo "::set-output name=create_version::$(mix create_version)"
         id: create_version
-#      - run: echo "${{fromJson(steps.create_version.outputs.create_version).updated}}"
-      - run: echo "${{steps.create_version.outputs.create_version}}"
+      - run: echo "${{fromJson(steps.create_version.outputs.create_version).updated}}"
