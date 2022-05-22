@@ -4,18 +4,42 @@ on:
 #    - cron:  '30 23 * * *'
 
 jobs:
-  release:
+  create_version:
     runs-on: ubuntu-20.04
-    name: Release new eibi sqlite version
-
+    name: Creates new eibi sqlite version if necessary
+    outputs:
+      has_to_create_new_version: ${{ fromJson(steps.create_version.outputs.create_version).updated }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: erlef/setup-beam@v1
         with:
           otp-version: '24'
           elixir-version: '1.13.0'
-      - run: mix deps.get
-      - run: mix compile
-      - run: echo "::set-output name=create_version::$(mix create_version)"
+      - name: Retrieve cached dependencies
+        uses: actions/cache@v3
+        id: mix-cache
+        with:
+          path: |
+            deps
+            _build
+            priv/plts
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('mix.lock') }}
+      - name: Install dependencies if not in cache
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix deps.get
+          mix deps.compile
+      - name: Compile
+        run: mix compile
+      - name: Run create version task
         id: create_version
-      - run: echo "${{fromJson(steps.create_version.outputs.create_version).updated}}"
+        run: echo "::set-output name=create_version::$(mix create_version)"
+  release:
+    runs-on: ubuntu-20.04
+    name: Creates new eibi sqlite version if necessary
+    if: jobs.create_version.outputs.has_to_create_new_version == 'true'
+    steps:
+      - name: Test
+        run: echo "hello world!"
