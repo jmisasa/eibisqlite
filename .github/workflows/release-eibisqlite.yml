@@ -39,7 +39,7 @@ jobs:
   release:
     runs-on: ubuntu-20.04
     name: Creates new eibi sqlite version if necessary
-    if: jobs.create_version.outputs.has_to_create_new_version == 'true'
+    if: ${{ jobs.create_version.outputs.has_to_create_new_version == 'true' }}
     steps:
       - name: Test
         run: echo "hello world!"
