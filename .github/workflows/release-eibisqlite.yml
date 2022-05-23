@@ -44,6 +44,11 @@ jobs:
     name: Release new eibisqlite
     if: ${{ needs.create_version.outputs.has_to_create_new_version == 'true' }}
     steps:
+      - name: Tag release
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
       - name: Make release
         uses: softprops/action-gh-release@v1
         with:
