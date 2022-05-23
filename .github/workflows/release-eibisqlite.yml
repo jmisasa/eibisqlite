@@ -6,9 +6,11 @@ on:
 jobs:
   create_version:
     runs-on: ubuntu-20.04
-    name: Creates new eibi sqlite version if necessary
+    name: Create new eibi sqlite version if necessary
     outputs:
       has_to_create_new_version: ${{ fromJson(steps.create_version.outputs.create_version).updated }}
+      machine_name_for_period: ${{ fromJson(steps.create_version.outputs.create_version).machine_name_for_period }}
+      last_update: ${{ fromJson(steps.create_version.outputs.create_version).last_update }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -39,8 +41,12 @@ jobs:
   release:
     needs: create_version
     runs-on: ubuntu-20.04
-    name: Creates new eibi sqlite version if necessary
+    name: Release new eibisqlite
     if: ${{ needs.create_version.outputs.has_to_create_new_version == 'true' }}
     steps:
-      - name: Test
-        run: echo "hello world!"
+      - name: Make release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: tmp/eibi.sqlite
+          name: ${{ needs.create_version.outputs.machine_name_for_period }}-${{ needs.create_version.outputs.last_update }})
+          body: Shortwave schedules from EiBi files for period ${{ needs.create_version.outputs.machine_name_for_period }} (file date ${{ needs.create_version.outputs.last_update }})
