@@ -62,6 +62,7 @@ jobs:
           git commit -m "generate new release ${{ needs.create_version.outputs.filename }} - ${{ needs.create_version.outputs.last_update }}"
           git push origin master
       - name: Tag release
+        id: tag_release
         uses: anothrNick/github-tag-action@1.36.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -73,6 +74,7 @@ jobs:
       - name: Make release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: steps.tag_release.outputs.new_tag
           files: tmp/eibi.sqlite
           name: ${{ needs.create_version.outputs.machine_name_for_period }}-${{ needs.create_version.outputs.last_update }}
           body: Shortwave schedules from EiBi files for period ${{ needs.create_version.outputs.machine_name_for_period }} (file date ${{ needs.create_version.outputs.last_update }})
