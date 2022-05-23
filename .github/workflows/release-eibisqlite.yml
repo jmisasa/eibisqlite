@@ -11,6 +11,7 @@ jobs:
       has_to_create_new_version: ${{ fromJson(steps.create_version.outputs.create_version).updated }}
       machine_name_for_period: ${{ fromJson(steps.create_version.outputs.create_version).machine_name_for_period }}
       last_update: ${{ fromJson(steps.create_version.outputs.create_version).last_update }}
+      filename: ${{ fromJson(steps.create_version.outputs.create_version).filename }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -44,6 +45,15 @@ jobs:
     name: Release new eibisqlite
     if: ${{ needs.create_version.outputs.has_to_create_new_version == 'true' }}
     steps:
+      - name: Bump file version
+        run: |
+          sed -i 's/  latest: ".*"/  latest: "${{ needs.create_version.outputs.filename }}"/g' config/config.exs
+          sed -i 's/  last_update: ".*"/  last_update: "${{ needs.create_version.outputs.last_update }}"/g' config/config.exs
+          git config --global user.name 'jmisasa'
+          git config --global user.email 'jmisasa@users.noreply.github.com'
+          git add config/config.exs
+          git commit -m "generate new release ${{ needs.create_version.outputs.filename }} - ${{ needs.create_version.outputs.last_update }}"
+          git push origin master
       - name: Tag release
         uses: anothrNick/github-tag-action@1.36.0
         env:
@@ -53,5 +63,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: tmp/eibi.sqlite
-          name: ${{ needs.create_version.outputs.machine_name_for_period }}-${{ needs.create_version.outputs.last_update }})
+          name: ${{ needs.create_version.outputs.machine_name_for_period }}-${{ needs.create_version.outputs.last_update }}
           body: Shortwave schedules from EiBi files for period ${{ needs.create_version.outputs.machine_name_for_period }} (file date ${{ needs.create_version.outputs.last_update }})
