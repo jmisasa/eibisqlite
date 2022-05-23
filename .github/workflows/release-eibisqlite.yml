@@ -39,12 +39,19 @@ jobs:
       - name: Run create version task
         id: create_version
         run: echo "::set-output name=create_version::$(mix create_version)"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: eibisqlite
+          path: tmp/eibi.sqlite
   release:
     needs: create_version
     runs-on: ubuntu-20.04
     name: Release new eibisqlite
     if: ${{ needs.create_version.outputs.has_to_create_new_version == 'true' }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Bump file version
         run: |
           sed -i 's/  latest: ".*"/  latest: "${{ needs.create_version.outputs.filename }}"/g' config/config.exs
@@ -59,6 +66,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: eibisqlite
       - name: Make release
         uses: softprops/action-gh-release@v1
         with:
