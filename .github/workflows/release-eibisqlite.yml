@@ -74,7 +74,7 @@ jobs:
       - name: Make release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: steps.tag_release.outputs.new_tag
-          files: tmp/eibi.sqlite
+          tag_name: ${{ steps.tag_release.outputs.new_tag }}
+          files: eibi.sqlite
           name: ${{ needs.create_version.outputs.machine_name_for_period }}-${{ needs.create_version.outputs.last_update }}
           body: Shortwave schedules from EiBi files for period ${{ needs.create_version.outputs.machine_name_for_period }} (file date ${{ needs.create_version.outputs.last_update }})
