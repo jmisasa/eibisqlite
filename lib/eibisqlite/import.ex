@@ -135,7 +135,7 @@ defmodule Import do
       %{
         "utc_start" => utc_start,
         "utc_end" => utc_end
-      } = Regex.named_captures(~r/^(?<utc_start>\d{4})-(?<utc_end>\d{4})$/, utc)
+      } = Regex.named_captures(~r/^(?<utc_start>\d{4})-(?<utc_end>\d{4})(.+)?$/, utc)
 
       Sqlite.bind(conn, statement, [
           khz,
