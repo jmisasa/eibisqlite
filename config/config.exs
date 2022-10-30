@@ -1,5 +1,5 @@
 import Config
 
 config :eibisqlite,
-  latest: "sked-a22.csv",
-  last_update: "22 Oct 2022"
+  latest: "sked-b22.csv",
+  last_update: "30 Oct 2022"
