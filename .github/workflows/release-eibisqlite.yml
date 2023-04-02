@@ -38,7 +38,7 @@ jobs:
         run: mix compile
       - name: Run create version task
         id: create_version
-        run: echo "::set-output name=create_version::$(mix create_version)"
+        run: echo "create_version=$(mix create_version)" >> $GITHUB_OUTPUT
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
