@@ -33,6 +33,12 @@ defmodule Eibicrawler do
     last_update = document
       |> Floki.find("center:nth-of-type(2) > table:first-of-type > tr:first-of-type > td:last-of-type > span")
       |> Floki.text()
+      |> (&(Regex.run(
+        ~r/(?<date>\d{1,2} [A-Za-z]{3} 20\d{2})(.+)?/,
+        &1,
+        [capture: ["date"]]
+      ))).()
+      |> List.first()
 
     %Eibicrawler{
       machine_name_for_period: machine_name_for_period,
