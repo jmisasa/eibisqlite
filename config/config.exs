@@ -2,4 +2,4 @@ import Config
 
 config :eibisqlite,
   latest: "sked-b23.csv",
-  last_update: "8 Dec 2023"
+  last_update: "20 Dec 2023"
